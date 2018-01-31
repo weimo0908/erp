@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>供应商/客户管理</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<script type="text/javascript" src="ui/download.js"></script>
+	<!-- 引入crud -->
+	<script type="text/javascript" src="js/crud.js"></script>
+	<!-- 引入request.js -->
+	<script type="text/javascript" src="js/request.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+	<!-- 配置通用属性 -->
+	<script type="text/javascript">
+	/* 静态页面传参,标题修改 */
+	//供应商
+	if(Request['type']==1){
+		document.title="供应商管理";
+		listParam="?t1.type=1";
+		saveParam="?t.type=1";
+	}
+	
+	//客户	
+	if(Request['type']==2){
+		document.title = "客户管理";
+		listParam ="?t1.type=2";//模糊查询
+		saveParam ="?t.type=2";//修改保存
+	}
+	
+	/* 定义action名称 */
+	var name = "supplier";
+	/* 定义弹出窗口大小 */
+	var width = "600";
+	var height ="150";
+	/* 显示datagrid */
+	var columns=[[    
+		        {field:'uuid',title:'编号',width:100,align:'center',sortable:true},    
+		        {field:'name',title:'名称',width:100,align:'center',sortable:true},    
+		        {field:'address',title:'联系地址',width:100,align:'center',sortable:true},    
+		        {field:'contact',title:'联系人',width:100,align:'center',sortable:true},    
+		        {field:'tele',title:'联系电话',width:100,align:'center',sortable:true},    
+		        {field:'email',title:'邮箱',width:100,align:'center',sortable:true},    
+		        {field:'-',title:'操作',width:100,align:'center',
+		        	formatter: function(value,row,index){
+		        		var oper = '<a href="javascript:void(0)" onclick="edit(' + row.uuid + ')">修改</a>&nbsp;&nbsp;';
+			        	oper += '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="del(' + row.uuid + ')">删除</a>';
+			        	return oper;
+					}
+		        }    
+		    ]];
+		
+	
+	</script>
+	
+	
+	</head>
+	
+	
+	
+	<body>
+		<!-- 条件查询表单 -->
+		<div class="easyui-panel" style="padding-left: 4px ;border-bottom: 0px" >  
+			<div style="height: 2px;"></div>
+			<form id="searchForm">
+				<table>
+					<tr>
+						<td>名称:</td>
+						<td><input name="t1.name" placeholder="请输入邮箱称或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>联系地址:</td>
+						<td><input name="t1.address" placeholder="请输入电话或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>联系人:</td>
+						<td><input name="t1.contact" placeholder="请输入联系地址或关键字" ></td>
+					</tr>
+					
+					<tr>
+						<td>联系电话:</td>
+						<td><input name="t1.tele" placeholder="请输入邮箱称或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>邮箱地址:</td>
+						<td><input name="t1.email" placeholder="请输入电话或关键字" >&nbsp; &nbsp;</td>
+						
+						<td colspan="2"><a id="btnSearch" type="button" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a></td>
+					</tr>
+				</table>
+			</form>
+			<div style="height: 2px;"></div>
+		</div>
+		
+		<!-- datagrid列表 -->
+		<table id="grid"></table> 
+		
+		<!-- 修改窗口 -->
+		<div id="editDlg">
+			<form id="editForm">
+				<!-- 隐藏uuid属性 -->						
+				<input name ="t.uuid" type="hidden">
+				<table>
+					<tr>
+						<td>姓名:</td>
+						<td>
+							<input name="t.name" placeholder="请输入姓名"  class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'姓名不能为空!'"
+							>&nbsp; &nbsp;
+						</td>
+						<td>联系地址:</td>
+						<td>
+							<input name="t.address" placeholder="请输入联系地址"  class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'联系地址不能为空!'"
+							>&nbsp; &nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td>联系人:</td>
+						<td>
+							<input name="t.contact" placeholder="请输入员工姓名" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'员工姓名不能为空!'"
+							>
+						</td>
+						<td>联系电话:</td>
+						<td>
+							<input name="t.tele" placeholder="请输入电话" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'电话不能为空!'"
+							>
+						</td>
+					</tr>	
+					<tr>
+						<td>邮箱地址:</td>
+						<td>
+							<input name="t.email" placeholder="请输入员工邮箱" class="easyui-validatebox" data-options="
+							required:true,validType:'email',invalidMessage:'Email格式不正确'"
+							>
+						</td>
+						<td colspan="2"><a id="btnSave" type="button" class="easyui-linkbutton"
+						 data-options="iconCls:'icon-save'">保存</a>
+						 </td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+		<!-- 数据导入窗口 -->
+		<div id="importDlg" style="padding: 2px;">
+			<form id="importForm" enctype="multipart/form-data">
+				导入文件:<input type="file" name="file">
+			</form>
+		</div>
+		
+		
+	</body>
+</html>

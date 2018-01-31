@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 配置Biz交给spring管理 -->
+	<!-- 部门 -->
+	<bean id="depBiz" class="cn.kumiaojie.erp.biz.impl.DepBiz">
+		<property name="depDao" ref="depDao"/>
+	</bean>
+	<!-- 员工 -->
+	<bean id="empBiz" class="cn.kumiaojie.erp.biz.impl.EmpBiz">
+		<property name="empDao" ref="empDao"/>
+		<property name="roleDao" ref="roleDao"/>
+		<property name="jedis" ref="jedis"/>
+		<property name="depDao" ref="depDao"/>
+	</bean>
+	<!-- 商品 -->	
+	<bean id="goodsBiz" class="cn.kumiaojie.erp.biz.impl.GoodsBiz">
+		<property name="goodsDao" ref="goodsDao"/>
+		<property name="goodstypeDao" ref="goodstypeDao"/>
+	</bean>
+	<!-- 商品分类 -->	
+	<bean id="goodstypeBiz" class="cn.kumiaojie.erp.biz.impl.GoodstypeBiz">
+		<property name="goodstypeDao" ref="goodstypeDao"/>
+	</bean>	
+	<!-- 菜单 -->
+	<bean id="menuBiz" class="cn.kumiaojie.erp.biz.impl.MenuBiz" >
+		<property name="menuDao" ref="menuDao"/>
+		<property name="jedis" ref="jedis"/>
+	</bean>
+	<!-- 供应商/客户 -->
+	<bean id="supplierBiz" class="cn.kumiaojie.erp.biz.impl.SupplierBiz">
+		<property name="supplierDao" ref="supplierDao"></property>
+	</bean>
+	<!-- 订单 -->
+	<bean id="ordersBiz" class="cn.kumiaojie.erp.biz.impl.OrdersBiz">
+		<property name="ordersDao" ref="ordersDao"/>
+		<property name="supplierDao" ref="supplierDao"/>
+		<property name="empDao" ref="empDao"/>
+		<property name="waybillWs" ref="waybillClient"/>
+	</bean>
+	<!-- 订单详情 -->	
+	<bean id="orderdetailBiz" class="cn.kumiaojie.erp.biz.impl.OrderdetailBiz">
+		<property name="orderdetailDao" ref="orderdetailDao"/>
+		<property name="storedetailDao" ref="storedetailDao"/>
+		<property name="storeoperDao" ref="storeoperDao"/>
+		<property name="waybillWs" ref="waybillClient"/>
+		<property name="supplierDao" ref="supplierDao"/>
+	</bean>
+	<!-- 仓库 -->	
+	<bean id="storeBiz" class="cn.kumiaojie.erp.biz.impl.StoreBiz">
+		<property name="storeDao" ref="storeDao"/>
+		<property name="empDao" ref="empDao"/>
+	</bean>
+	<!-- 仓库库存 -->	
+	<bean id="storedetailBiz" class="cn.kumiaojie.erp.biz.impl.StoredetailBiz">
+		<property name="storedetailDao" ref="storedetailDao"/>
+		<property name="goodsDao" ref="goodsDao"/>
+		<property name="storeDao" ref="storeDao"/>
+		
+		<!-- 邮件相关 (此方法已经改了注入的方式,改成页面中动态输入!!!)-->
+		<property name="mailUtil" ref="mailUtil"/>
+		<!-- <property name="to" value="314738694@qq.com"/>
+		<property name="subject" value="酷妙街仓库库存预警_Time:[time]"/>
+		<property name="text" value="尊敬的客户,仓库中已有[count]种商品需要进货了,请登录酷妙街ERP7.1系统查看"/> -->
+		
+	</bean>
+	<!-- 仓库变动记录 -->	
+	<bean id="storeoperBiz" class="cn.kumiaojie.erp.biz.impl.StoreoperBiz">
+		<property name="storeoperDao" ref="storeoperDao"/>
+		<property name="empDao" ref="empDao"/>
+		<property name="goodsDao" ref="goodsDao"/>
+		<property name="storeDao" ref="storeDao"/>
+	</bean>
+	<!-- 报表 -->
+	<bean id="reportBiz" class="cn.kumiaojie.erp.biz.impl.ReportBiz">
+		<property name="reportDao" ref="reportDao"/>
+		<property name="goodstypeDao" ref="goodstypeDao"/>
+		<property name="goodsDao" ref="goodsDao"/>
+		<property name="storedetailDao" ref="storedetailDao"/>
+	</bean>
+	<!-- 角色 -->
+	<bean id="roleBiz" class="cn.kumiaojie.erp.biz.impl.RoleBiz">
+		<property name="roleDao" ref="roleDao"/>
+		<property name="menuDao" ref="menuDao"/>
+		<property name="jedis" ref="jedis"/>
+	</bean>
+	<!-- 退货订单明细 -->
+	<bean id="returnorderdetailBiz" class="cn.kumiaojie.erp.biz.impl.ReturnorderdetailBiz">
+		<property name="returnorderdetailDao" ref="returnorderdetailDao"/>
+		<property name="storeoperDao" ref="storeoperDao"/>
+		<property name="ordersDao" ref="ordersDao"/>
+		<property name="returnordersDao" ref="returnordersDao"/>
+	</bean>
+	<!-- 退货订单 -->
+	<bean id="returnordersBiz" class="cn.kumiaojie.erp.biz.impl.ReturnordersBiz">
+		<property name="returnordersDao" ref="returnordersDao"/>
+		<property name="ordersDao" ref="ordersDao"/>
+		<property name="empDao" ref="empDao"/>
+		<property name="supplierDao" ref="supplierDao"/>
+	</bean>
+	
+	<!-- 盘盈盘亏 -->
+	<bean id="inventoryBiz" class="cn.kumiaojie.erp.biz.impl.InventoryBiz">
+		<property name="inventoryDao" ref="inventoryDao"></property>
+		<property name="storeoperDao" ref="storeoperDao"/>
+		<property name="storedetailDao" ref="storedetailDao"/>
+	</bean>
+	
+	
+</beans>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">  
+	<!-- 配置邮箱发送器 -->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- 发送邮件的协议 -->
+        <property name="protocol" value="smtp"/>
+        <!-- 邮件的服务器地址 -->
+        <property name="host" value="smtp.zoho.com.cn"/>
+        <!-- 发送邮件的端口 -->
+        <property name="port" value="465" />
+        <!-- 帐号 -->
+        <property name="username" value="stivechen@zoho.com.cn"/>
+        <!-- 密码 -->
+        <property name="password" value="Javatest123456"/>
+        <!-- mail的配置 -->
+        <property name="javaMailProperties">
+            <props>
+            	<!-- 验证用户名与发件者是否一致 -->
+                <prop key="mail.smtp.auth">true</prop>  
+                <!-- 传输层加密 -->
+                <prop key="mail.smtp.ssl.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+	
+	<!-- 配置邮箱工具类 -->
+	<bean id="mailUtil" class="cn.kumiaojie.erp.utils.MailUtil">
+		<property name="javaMailSender" ref="javaMailSender" />
+		<!-- 配置发件人 -->
+		<property name="from" value="stivechen@zoho.com.cn"/>
+	</bean>
+	
+</beans>
+	

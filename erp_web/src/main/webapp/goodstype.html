@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>商品种类管理</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<script type="text/javascript" src="ui/download.js"></script>
+	<!-- 引入crud -->
+	<script type="text/javascript" src="js/crud.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+	<!-- 配置通用属性 -->
+	<script type="text/javascript">
+	/* 定义action名称 */
+	var name = "goodstype";
+	
+	/* 定义弹出窗口大小 */
+	var width = "330";
+	var height ="120";
+	
+	/* 显示datagrid */
+	var columns=[[    
+		        {field:'uuid',title:'商品编号',width:100,align:'center',sortable:true},    
+		        {field:'name',title:'商品名称',width:100,align:'center'},    
+		        {field:'-',title:'操作',width:100,align:'center',
+		        	formatter: function(value,row,index){
+		        		var oper = '<a href="javascript:void(0)" onclick="edit(' + row.uuid + ')">修改</a>&nbsp;&nbsp;';
+			        	oper += '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="del(' + row.uuid + ')">删除</a>';
+			        	return oper;
+					}
+		        }    
+		    ]];
+		
+	
+	</script>
+	
+	
+	</head>
+	
+	
+	
+	<body>
+		<!-- 条件查询表单 -->
+		<div class="easyui-panel" style="padding-left: 4px ;border-bottom: 0px" >  
+			<div style="height: 2px;"></div>
+			<form id="searchForm">
+				<table>
+					<tr>
+						<td>商品类型名称:</td>
+						<td><input name="t1.name" placeholder="请输入商品类型名称或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>
+							<a id="btnSearch" type="button" class="easyui-linkbutton" data-options="iconCls:'icon-search'" 
+							>查询</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="height: 2px;"></div>
+		</div>
+		
+		<!-- datagrid列表 -->
+		<table id="grid"></table> 
+		
+		<!-- 修改窗口 -->
+		<div id="editDlg">
+			<form id="editForm">
+				<!-- 隐藏uuid属性 -->						
+				<input name ="t.uuid" type="hidden">
+				<table>
+					<tr>
+						<td>商品类型名称:</td>
+						<td>
+							<input name="t.name" placeholder="请输入商品类型名称"  class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'商品类型名称不能为空!'"
+							>&nbsp; &nbsp;
+						</td>
+					<tr>
+						<td colspan="2"><a id="btnSave" type="button" class="easyui-linkbutton"
+						 data-options="iconCls:'icon-save'">保存</a>
+						 </td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+<div id="importDlg" style="padding:2px;">
+	<form id="importForm" enctype="multipart/form-data">
+		导入文件:<input type="file" name="file"/>
+	</form>
+</div>
+		
+	</body>
+</html>

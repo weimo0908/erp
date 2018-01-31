@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>酷妙街ERP管理系统</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/login.css"/>
+	
+	<script type="text/javascript">
+		$(function(){
+			//登录按钮，向后台发起异步请求
+			$("#btnLogin").bind('click',function(){
+				var formData = $("#loginform").serializeJSON();
+				$.ajax({
+					url:'login_checkUser',
+					data:formData,
+					dataType:'json',
+					type:'post',
+					success:function(rtn){
+						//判断返回值
+						if(rtn.success){
+							//登录成功跳转到主页面;
+							window.location.href="index.html";
+						}else{
+							//登录失败
+							$.messager.alert('提示',rtn.message,'info');
+						}
+					}
+				});
+			})
+			
+		});
+		
+	</script>
+	
+</head>
+
+
+<body>
+<div class='signup_container'>
+<div class="w-load"><div class="spin"></div></div>
+    <h1 class='signup_title'>酷妙街ERP管理系统旗舰版7.1</h1>
+    <div id="userInfo">
+    	<span style="float:left; margin-left:10px; height:200px;"><img src='images/kumiaojielogo.jpg' id='admin'/></span>
+        <div style="float:left; margin-left:40px;margin-top:20px; height:150px;">
+            <div id="signup_forms" class="signup_forms clearfix">
+                        <form class="signup_form_form" id="loginform" method="post" >
+	                        <div class="form_row first_row">
+	                            <label for="signup_email">请输入用户名</label>
+	                            <input type="text" name="username" placeholder="请输入用户名" id="signup_name" >
+	                        </div>
+	                        <div class="form_row">
+	                            <label for="signup_password">请输入密码</label>
+	                            <input type="password" name="pwd" placeholder="请输入密码" id="signup_password" >
+	                        </div>
+                       </form>
+            </div> 
+            <div id="foo"></div>
+                	<br/>      
+        </div>
+    </div>
+    
+    
+
+    <div class="login-btn-set"><div class='rem'>记住我</div> <a href='javascript:void(0)' id="btnLogin" class='login-btn'></a></div>
+</div>
+
+</body>
+
+
+
+</html>

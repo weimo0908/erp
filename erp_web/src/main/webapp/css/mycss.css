@@ -1,0 +1,7 @@
+/* input选项框样式*/
+input {
+	padding-left: 15px;
+	 width: 180px; 
+	 height: 25px; 
+	 border-radius: 4px;border:1px solid grey;
+}

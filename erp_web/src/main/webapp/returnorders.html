@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>退货管理</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="css/table.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="ui/date.js"></script>
+<script type="text/javascript" src="js/request.js"></script> 
+<script type="text/javascript" src="js/returnorders.js"></script> 
+</head>
+<body>
+	<table id="grid"></table>
+	<div id="itemDlg" class="easyui-dialog" style="padding:2px;" title="订单详情"
+	data-options="modal:true,closed:true,width:1000,height:700">
+	<form id="sendform">
+	<span id="supplierName"></span>:<input id="supplier" name="t.supplieruuid">  订单编号:<input  id="orders" name="t.orders.uuid">
+	</form>
+	<div style="height:2px"></div>
+	<!--订单明细表格  -->
+	<table id="itemgrid"></table>
+	<div id="sum"></div>
+	<button type="button" id="btn">提交</button>
+	</div>
+	
+	<div id="returnordersDlg" class="easyui-dialog" style="padding:2px;" title="订单详情"
+	data-options="modal:true,closed:true,width:700,height:320">
+	<table class="hovertable"> 
+			<tr>
+				<td class="bg">流水号</td>
+				<td id="id"></td>
+				<td class="bg">供应商</td>
+				<td id="suppliername"></td>
+				<td class="bg">状态</td>
+				<td id="state"></td>
+			</tr>
+			<tr>
+				<td class="bg" width="10%">下单员</td>
+				<td id="creater" width="25%"></td>
+				<td class="bg" width="10%">审核员</td>
+				<td id="checker"width="25%"></td>
+				<td class="bg"width="10%">仓管员</td>
+				<td id="ender"width="20%"></td>
+			</tr>
+			<tr>
+				<td class="bg" >创建日期</td>
+				<td  id="createtime"></td>
+				<td class="bg">审核日期</td>
+				<td id="checktime"></td>
+				<td class="bg">出库日期</td>
+				<td id="endtime"></td>
+			</tr>
+			<tr>
+				<td class="noBorderBottom" >运单号</td>
+				<td class="noBorderBottom" id="waybillsn"></td>
+				<td class="noBorderBottom"></td>
+				<td class="noBorderBottom"></td>
+				<td class="noBorderBottom"></td>
+				<td class="noBorderBottom"></td>
+			</tr>
+	</table>
+	<!--订单明细表格  -->
+	<table id="returnitemgrid"></table>
+	</div>
+	<div id="detailitemDlg" style="padding:4px;">
+	<form id="detailitemForm">
+		<input type="hidden" name="id" id="itemuuid">
+		<table class="hovertable">
+			<tr>
+				<td width="30%" class="bg">订单编号</td>
+				<td width="70%" id="detailuuid"></td>
+			</tr>
+			<tr>
+				<td width="30%" class="bg">商品编号</td>
+				<td width="70%" id="goodsuuid"></td>
+			</tr>
+			<tr>
+				<td class="bg">商品名称</td>
+				<td id="goodsname"></td>
+			</tr>
+			<tr>
+				<td class="bg">数量</td>
+				<td id="goodsnum"></td>
+			</tr>
+			<tr>
+				<td class="bg">仓库编号</td>
+				<td id="storeuuid"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+	
+</body>
+</html>

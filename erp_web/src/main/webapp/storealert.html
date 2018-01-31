@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>库存预警报表</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/table.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<script type="text/javascript" src="js/request.js"></script>
+	<!-- 引入storedetail.js -->
+	<script type="text/javascript" src="js/storealert.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+</head>
+<body>
+	
+	<!-- 数据列表 -->
+	<table id="grid"></table>
+	
+		<!-- 发送邮件窗口 -->
+		<div id="emailDlg">
+			<form id="emailForm">
+				<table>
+					<tr>
+						<td>邮箱地址:</td>
+						<td>
+							<!-- 可以做成下拉选项框,选择emp表中的email -->
+							<input id="emp" name="to">&nbsp; &nbsp;
+							<!-- <input name="to" placeholder="请输入邮箱地址"  class="easyui-validatebox" 
+							data-options="required:true,validType:'email',missingMessage:'邮箱地址不能为空!'"
+							>&nbsp; &nbsp; -->
+						</td>
+						<td>邮件标题:</td>
+						<td>
+							<input name="subject" placeholder="酷妙街仓库库存预警" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'邮件标题不能为空!'"
+							>
+						</td>
+					</tr>
+					<tr>
+						<td>邮件内容:</td>
+						<td>
+							<textarea name="text" rows="3" cols="25" placeholder="尊敬的XXX总,很抱歉通知您" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'邮件内容不能为空!'"
+							style="border-radius: 4px;border:1px solid grey;"
+							></textarea>
+						</td>
+						<td colspan="2"><a id="btnSend" type="button" class="easyui-linkbutton"
+						 data-options="iconCls:'icon-send-email'">发送</a>
+						 </td>
+					</tr>	
+				</table>
+			</form>
+		</div>
+	
+</body>
+</html>

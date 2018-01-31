@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+<!-- 	private Long uuid;// 编号
+	private Long storeuuid;// 仓库编号
+	private Long goodsuuid;// 商品编号
+	private Long num;// 数量
+ -->
+
+ 
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Storedetail" table="storedetail">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">STOREDETAIL_SEQ</param>
+			</generator>
+		</id>
+		<property name="storeuuid"/>
+		<property name="goodsuuid"/>
+		<property name="num"/>
+	</class>
+
+</hibernate-mapping>

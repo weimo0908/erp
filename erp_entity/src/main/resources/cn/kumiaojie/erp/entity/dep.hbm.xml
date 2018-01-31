@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+
+<!--private Long uuid;// 部门编号
+	private String name;// 部门名称
+	private String tele;// 部门电话
+ --> 
+ 
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Dep" table="dep">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">DEP_SEQ</param>
+			</generator>
+		</id>
+		<property name="name"/>
+		<property name="tele"/>
+	</class>
+
+</hibernate-mapping>

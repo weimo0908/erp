@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+<!-- 	private Long uuid ;//商品编号
+	private String name;//商品名称
+	private String origin;//产地
+	private String producer;//厂家
+	private String unit;//计量单位
+	private Double inprice;//进货价格
+	private Double outprice;//销售价格 
+	private Goodstype  goodstype;//商品类型-->
+
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Goods" table="goods">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">GOODS_SEQ</param>
+			</generator>
+		</id>
+		<property name="name"/>
+		<property name="origin"/>
+		<property name="producer"/>
+		<property name="unit"/>
+		<property name="inprice"/>
+		<property name="outprice"/>
+		
+		<!-- goods外键 -->
+		<many-to-one name="goodstype" class="cn.kumiaojie.erp.entity.Goodstype" column="goodstypeuuid"></many-to-one>
+		
+	</class>
+
+</hibernate-mapping>

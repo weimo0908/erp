@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>订单详情</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<!-- 引入crud -->
+	<script type="text/javascript" src="js/crud.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+	<!-- 配置通用属性 -->
+	<script type="text/javascript">
+	/* 定义action名称 */
+	var name = "orderdetail";
+	/* 定义弹出窗口大小 */
+	var width = "600";
+	var height ="250";
+	/* 显示datagrid */
+	var columns=[[    
+		        {field:'uuid',title:'商品编号',width:100,align:'center',sortable:true},    
+		        {field:'name',title:'商品名称',width:100,align:'center'},    
+		        {field:'origin',title:'商品产地',width:100,align:'center'},    
+		        {field:'producer',title:'商品厂家',width:100,align:'center'},    
+		        {field:'unit',title:'计量单位',width:100,align:'center'},    
+		        {field:'inprice',title:'进货价格',width:100,align:'center'},    
+		        {field:'outprice',title:'销售价格',width:100,align:'center'},    
+		        {field:'goodstype',title:'商品类型',width:100,align:'center',
+		        	formatter:function(value){
+		        		return value.name;
+		        	}},    
+		        	
+		        {field:'-',title:'操作',width:100,align:'center',
+		        	formatter: function(value,row,index){
+		        		var oper = '<a href="javascript:void(0)" onclick="edit(' + row.uuid + ')">修改</a>&nbsp;&nbsp;';
+			        	oper += '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="del(' + row.uuid + ')">删除</a>';
+			        	return oper;
+					}
+		        }    
+		    ]];
+		
+	
+	</script>
+	
+	
+	</head>
+	
+	
+	
+	<body>
+		<!-- 条件查询表单 -->
+		<div class="easyui-panel" style="padding-left: 4px ;border-bottom: 0px" >  
+			<div style="height: 2px;"></div>
+			<form id="searchForm">
+				<table>
+					<tr>
+						<td>商品名称:</td>
+						<td><input name="t1.name" placeholder="请输入商品名称或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>商品产地:</td>
+						<td><input name="t1.origin" placeholder="请输入商品产地或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>商品厂家:</td>
+						<td><input name="t1.producer" placeholder="请输入商品厂家或关键字" >&nbsp; &nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td>计量单位:</td>
+						<td>
+							<input name="t1.unit" placeholder="请输入商品计量单位" >&nbsp; &nbsp;
+							&nbsp; &nbsp;
+						</td>
+						<td>进货价格:</td>
+						<td><input name="t1.inprice" class="easyui-numberbox" data-options="min:0,precision:2,prefix:'￥'" style="height: 30px;" >&nbsp; &nbsp;</td>
+						<td>到:</td>
+						<td><input name="t2.inprice" class="easyui-numberbox" data-options="min:0,precision:2,prefix:'￥'" style="height: 30px;"></td>
+					</tr>
+					
+					<tr>
+						<td>商品类型:</td>
+						<td><input name="t1.goodstype.uuid" class="easyui-combobox"  style="height: 30px;" data-options="
+							url:'goodstype_list',textField:'name' , valueField:'uuid' 
+							">&nbsp; &nbsp;
+							</td>
+						<td>销售价格:</td>
+						<td><input name="t1.outprice" class="easyui-numberbox" data-options="min:0,precision:2,prefix:'￥'" style="height: 30px;" >&nbsp; &nbsp;</td>
+						<td>到:</td>
+						<td><input name="t2.outprice" class="easyui-numberbox" data-options="min:0,precision:2,prefix:'￥'" style="height: 30px;"></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2"><a id="btnSearch" type="button" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a></td>
+					</tr>
+				</table>
+			</form>
+			<div style="height: 2px;"></div>
+		</div>
+		
+		<!-- datagrid列表 -->
+		<table id="grid"></table> 
+		
+		<!-- 修改窗口 -->
+		<div id="editDlg">
+			<form id="editForm">
+				<!-- 隐藏uuid属性 -->						
+				<input name ="t.uuid" type="hidden">
+				<table>
+					<tr>
+						<td>商品名称:</td>
+						<td>
+							<input name="t.name" placeholder="请输入商品名称"  class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'商品名称不能为空!'"
+							>&nbsp; &nbsp;
+						</td>
+						<td>商品产地:</td>
+						<td>
+							<input name="t.origin" placeholder="请输入商品产地" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'商品产地不能为空!'"
+							>
+						</td>
+					</tr>
+					<tr>
+						<td>商品厂家:</td>
+						<td>
+							<input name="t.producer" placeholder="请输入商品厂家" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'商品厂家不能为空!'"
+							>
+						</td>
+						<td>计量单位:</td>
+						<td>
+							<input name="t.unit" placeholder="请输入商品计量单位" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'计量单位不能为空!'"
+							>
+						</td>
+						
+					</tr>	
+					<tr>
+						<td>进货价格:</td>
+						<td>
+							<input name="t.inprice" placeholder="请输入进货价格" class="easyui-numberbox" 
+							data-options="min:0,precision:2,prefix:'￥',required:true,missingMessage:'进货价格不能为空!'"
+							style="height: 30px;"
+							>
+						</td>
+						<td>商品售价:</td>
+						<td>
+							<input name="t.outprice" placeholder="请输入销售价格" class="easyui-numberbox" 
+							data-options="min:0,precision:2,prefix:'￥',required:true,missingMessage:'销售价格不能为空!'"
+							style="height: 30px;"
+							>
+						</td>
+					</tr>	
+					<tr>
+						<td>商品类型:</td>
+						<td>
+							<input name="t.goodstype.uuid" class="easyui-combobox" data-options="
+							url:'goodstype_list', textField:'name', valueField:'uuid',required:true" style="height: 30px;"
+							>
+						</td>
+						<td colspan="2"><a id="btnSave" type="button" class="easyui-linkbutton"
+						 data-options="iconCls:'icon-save'">保存</a>
+						 </td>
+					</tr>	
+				</table>
+			</form>
+		</div>
+		
+	</body>
+</html>

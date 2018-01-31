@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">  
+	
+	<!-- 定义一个任务类 -->
+	<bean id="mailJob" class="cn.kumiaojie.erp.job.MailJob">
+		<property name="storedetailBiz" ref="storedetailBiz"/>
+		<!-- 所需默认属性 -->
+		<property name="to" value="314738694@qq.com"/>
+		<property name="subject" value="酷妙街仓库库存预警_Time:[time]"/>
+		<property name="text" value="尊敬的客户,酷妙街仓库中已有[count]种商品需要进货了,请登录酷妙街ERP7.1系统查看"/> 
+	</bean>
+	<!-- 任务类描述 -->
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用哪个类 -->
+		<property name="targetObject" ref="mailJob"></property>
+		<!-- 调用的是哪个方法 -->
+		<property name="targetMethod" value="sendStorealertMail"></property>
+	</bean>
+	<!-- 触发器  -->
+	<bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail"></property>
+		<!-- 七子表达式 -->
+		<property name="cronExpression" value="0 0 9,14 * * ?"></property><!-- 每第10秒 40秒都发送一次 -->
+		<!-- 0 0 9,14 * ? *   每天早上九点,下午两点发送-->
+	</bean>
+	<!-- 任务调度管理容器 -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+		<property name="triggers">
+			<list>
+				<ref bean="mailTrigger"/>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
+	

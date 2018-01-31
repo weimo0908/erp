@@ -1,0 +1,243 @@
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat;
+}
+.icon-chart_ana{
+	background:url('icons/chart_ana.png') no-repeat;
+}
+.icon-cog{
+	background:url('icons/cog.png') no-repeat;
+}
+.icon-key{
+	background:url('icons/key.png') no-repeat;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat;
+}
+.icon-folder{
+	background:url('icons/folder.png') no-repeat;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-base_info{
+	background:url('icons/base_info.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-archives{
+	background:url('icons/archives.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-house{
+	background:url('icons/house.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-suppliers{
+	background:url('icons/suppliers.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-customers{
+	background:url('icons/customers.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-basket{
+	background:url('icons/basket.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-emp{
+	background:url('icons/emp.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-group-gear{
+	background:url('icons/group-gear.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-group-add{
+	background:url('icons/group-add.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-orders_search{
+	background:url('icons/orders_search.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-cart-put{
+	background:url('icons/cart-put.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-cart-remove{
+	background:url('icons/cart-remove.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-database-gear{
+	background:url('icons/database-gear.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-issue{
+	background:url('icons/issue.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-chart-pie{
+	background:url('icons/chart-pie.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-chart-curve{
+	background:url('icons/chart-curve.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-chart-pie-error{
+	background:url('icons/chart-pie-error.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-chart-bar{
+	background:url('icons/chart-bar.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-flag-red{
+	background:url('icons/flag-red.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-door-in{
+	background:url('icons/door-in.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-door-out{
+	background:url('icons/door-out.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-cart-delete{
+	background:url('icons/cart-delete.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-script-edit{
+	background:url('icons/script-edit.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-database-error{
+	background:url('icons/database-error.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-date-magnify{
+	background:url('icons/date-magnify.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-database-table{
+	background:url('icons/database-table.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-report-magnify{
+	background:url('icons/report-magnify.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-hire-me{
+	background:url('icons/hire-me.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-special{
+	background:url('icons/special.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-sitemap{
+	background:url('icons/sitemap.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-coins-add{
+	background:url('icons/coins-add.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-coins-delete{
+	background:url('icons/coins-delete.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-coins{
+	background:url('icons/coins.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-money-add{
+	background:url('icons/money-add.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-money-delete{
+	background:url('icons/money-delete.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-page-find{
+	background:url('icons/page-find.png') no-repeat center center;
+	background-size:16px 16px 
+}
+.icon-lorry{
+    background:url('icons/lorry.png') no-repeat center center;
+    background-size:16px 16px;
+}
+.icon-location{
+    background:url('icons/location.png') no-repeat center center;
+    background-size:16px 16px;
+}
+.icon-lo-detail{
+    background:url('icons/lo-detail.png') no-repeat center center;
+    background-size:16px 16px;
+}
+.icon-logistics-car{
+    background:url('icons/logistics-car.png') no-repeat center center;
+    background-size:16px 16px;
+}
+.icon-s-logistics{
+    background:url('icons/s-logistics.png') no-repeat center center;
+    background-size:16px 16px;
+}

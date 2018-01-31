@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>仓库库存管理</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/table.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<script type="text/javascript" src="js/request.js"></script>
+	<!-- 引入storedetail.js -->
+	<script type="text/javascript" src="js/storedetail.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+</head>
+<body>
+	<div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
+		<div style="height:2px;"></div>
+		<form id="searchForm">
+			<table>
+				<tr>
+					<td>
+						仓库名称: <input name="t1.storeuuid" class="easyui-combobox"  style="height: 30px;" 
+						data-options="url:'store_list',textField:'name' , valueField:'uuid' 
+							">&nbsp; &nbsp;
+							
+						商品名称: <input name="t1.goodsuuid" class="easyui-combobox"  style="height: 30px;" 
+						data-options="url:'goods_list',textField:'name' , valueField:'uuid' 
+							">&nbsp; &nbsp;
+							
+						<a id="btnSearch" type="button" 
+						   class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<div style="height:2px;"></div>
+	</div>
+	<!-- 数据列表 -->
+	<table id="grid"></table>
+	
+	<!-- 订单详情弹出窗口 -->
+		<div id="detailsDlg" style="padding:2px;" class="easyui-dialog" data-options="
+		height:300,width:500,title:'库存变动记录',modal:true,closed:true,iconCls:'icon-search', maximizable:true,
+	    collapsible:true, minimizable:true">
+	    <!-- 窗口属性设置 -->
+			<table class="hovertable">
+				<tr>
+					<td class="bg" width="15%">商品名称</td>
+					<td id="goodsName" width="20%"></td>
+					<td class="bg" width="15%">仓库</td>
+					<td colspan="3" id="storeName" width="20%"></td>
+					<td class="bg" width="15%">现库存量</td>
+					<td colspan="3" id="num" width="15%"></td>
+				</tr>
+			</table>
+			<table id="itemgrid"></table>
+		</div>
+</body>
+</html>

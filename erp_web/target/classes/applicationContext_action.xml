@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 配置Action -->
+	<!-- 部门 -->
+	<bean id="depAction" class="cn.kumiaojie.erp.web.action.DepAction" scope="prototype"> 
+		<property name="depBiz" ref="depBiz"/>
+	</bean>
+	<!-- 员工 -->
+	<bean id="empAction" class="cn.kumiaojie.erp.web.action.EmpAction" scope="prototype">
+		<property name="empBiz" ref="empBiz"/>
+	</bean>
+	<!-- 商品 -->
+	<bean id="goodsAction" class="cn.kumiaojie.erp.web.action.GoodsAction" scope="prototype">
+		<property name="goodsBiz" ref="goodsBiz"/>
+	</bean>
+	<!-- 商品分类 -->
+	<bean id="goodstypeAction" class="cn.kumiaojie.erp.web.action.GoodstypeAction" scope="prototype">
+		<property name="goodstypeBiz" ref="goodstypeBiz"/>
+	</bean>
+	<!-- 登录登出  -->
+	<bean id="loginAction" class="cn.kumiaojie.erp.web.action.LoginAction" scope="prototype">
+	</bean>
+	<!-- 菜单 -->	
+	<bean id="menuAction" class="cn.kumiaojie.erp.web.action.MenuAction" scope="prototype">
+		<property name="menuBiz" ref="menuBiz"/>
+	</bean>
+	<!-- 客户/供应商 -->
+	<bean id="supplierAction" class="cn.kumiaojie.erp.web.action.SupplierAction">
+		<property name="supplierBiz" ref="supplierBiz"/>
+	</bean>
+	<!-- 订单 -->
+	<bean id="ordersAction" class="cn.kumiaojie.erp.web.action.OrdersAction" scope="prototype">
+		<property name="ordersBiz" ref="ordersBiz"/>
+	</bean>
+	<!-- 订单详情 -->	
+	<bean id="orderdetailAction" class="cn.kumiaojie.erp.web.action.OrderdetailAction" scope="prototype">
+		<property name="orderdetailBiz" ref="orderdetailBiz"/>
+	</bean>
+	<!-- 仓库-->	
+	<bean id="storeAction" class="cn.kumiaojie.erp.web.action.StoreAction" scope="prototype">
+		<property name="storeBiz" ref="storeBiz"/>
+	</bean>
+	<!-- 仓库库存表-->	
+	<bean id="storedetailAction" class="cn.kumiaojie.erp.web.action.StoredetailAction" scope="prototype">
+		<property name="storedetailBiz" ref="storedetailBiz"/>
+	</bean>
+	<!-- 仓库操作明细-->	
+	<bean id="storeoperAction" class="cn.kumiaojie.erp.web.action.StoreoperAction" scope="prototype">
+		<property name="storeoperBiz" ref="storeoperBiz"/>
+	</bean>
+	<!-- 报表统计 -->
+	<bean id="reportAction" class="cn.kumiaojie.erp.web.action.ReportAction">
+		<property name="reportBiz" ref="reportBiz"/>
+	</bean>
+	<!-- 角色 -->
+	<bean id="roleAction" class="cn.kumiaojie.erp.web.action.RoleAction">
+		<property name="roleBiz" ref="roleBiz"/>
+	</bean>
+	<!-- 退货订单明细 -->
+	<bean id="returnorderdetailAction" class="cn.kumiaojie.erp.web.action.ReturnorderdetailAction" scope="prototype">
+		<property name="returnorderdetailBiz" ref="returnorderdetailBiz"></property>
+	</bean>
+	<!-- 退货订单 -->
+	<bean id="returnordersAction" class="cn.kumiaojie.erp.web.action.ReturnordersAction" scope="prototype">
+		<property name="returnordersBiz" ref="returnordersBiz"></property>
+		<property name="ordersBiz" ref="ordersBiz"/>
+		<property name="returnorderdetailBiz" ref="returnorderdetailBiz"></property>
+		<property name="storedetailBiz" ref="storedetailBiz"/>
+	</bean>
+	<!-- 盘盈盘亏 -->
+	<bean id="inventoryAction" class="cn.kumiaojie.erp.web.action.InventoryAction" scope="prototype">
+		<property name="inventoryBiz" ref="inventoryBiz"></property>
+		<property name="goodsBiz" ref="goodsBiz"/>
+		<property name="storeBiz" ref="storeBiz"/>
+		<property name="empBiz" ref="empBiz"/>
+	</bean>
+	
+</beans>

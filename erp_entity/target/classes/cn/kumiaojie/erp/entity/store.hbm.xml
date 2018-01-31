@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+<!-- 	private Long uuid;// 仓库编号
+	private String name;// 名称
+	private Long empuuid;// 员工编号
+ -->
+ 
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Store" table="store">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">STORE_SEQ</param>
+			</generator>
+		</id>
+		<property name="name"/>
+		<property name="empuuid"/>
+	</class>
+
+</hibernate-mapping>

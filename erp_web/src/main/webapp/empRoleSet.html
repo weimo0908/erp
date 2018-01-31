@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>用户角色设置</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<!-- 引入crud -->
+	<script type="text/javascript" src="js/empRoleSet.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'west',title:'用户列表'" style="padding: 4px;width:400px;">
+		<table id="grid"></table>
+	</div>
+	<div data-options="region:'center',title:'角色设置'" style="padding:4px;">
+		<ul id="tree"></ul>  
+		<div style="padding: 4px"><hr></div>
+		<a id="btnSave" type="button" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+	</div>
+</body>
+</html>

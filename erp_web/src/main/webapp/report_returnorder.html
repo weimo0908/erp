@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>统计</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<script type="text/javascript" src="js/request.js"></script>
+	<!-- 引入hightcharts -->
+	<script type="text/javascript" src="ui/highcharts.js"></script>
+	<script type="text/javascript" src="ui/exporting.js"></script>
+	<script type="text/javascript" src="ui/highcharts-3d.js"></script>
+	<script type="text/javascript" src="ui/highcharts-zh_CN.js"></script>
+	
+	<!-- 引入report -->
+	<script type="text/javascript" src="js/report_returnorder.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center',title:document.title" style="padding-left:4px;background-color: #eee">
+		<form id="searchForm">
+			<table>
+				<tr>
+					<td>开始日期:</td>
+					<td><input name="startDate" class="easyui-datebox" style="height: 30px;">&nbsp; &nbsp;</td>
+					<td>结束日期:</td>
+					<td><input name="endDate" class="easyui-datebox" style="height: 30px;"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><a id="btnSearch" type="button" class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a></td>
+				</tr>
+			</table>
+		</form>
+		<div style="height:2px;"></div>
+		<table id="grid"></table>
+	</div>
+	<div data-options="region:'east',title:document.title,split:true" style="width:600px;">
+		<div id="pieChart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+	</div>
+</body>
+</html>

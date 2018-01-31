@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+
+<!-- 	private Long uuid;// 编号
+	private String username;// 姓名
+	private String pwd; // 密码
+	private String name;// 真实姓名
+	private Long gender;// 性别
+	private String email;// 邮箱
+	private String tele;// 电话
+	private String address;// 联系地址
+	private Date birthday;// 出生日期
+	private Dep dep;// 部门
+ --> 
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Emp" table="emp">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">EMP_SEQ</param>
+			</generator>
+		</id>
+		<property name="username"/>
+		<!-- 不更新密码 -->
+		<property name="pwd" update="false"/>
+		<property name="name"/>
+		<property name="gender"/>
+		<property name="email"/>
+		<property name="tele"/>
+		<property name="address"/>
+		<property name="birthday"/>
+		
+		<!-- dep外键 -->
+		<many-to-one name="dep" class="cn.kumiaojie.erp.entity.Dep" column="depuuid"></many-to-one>
+		<!-- role与emp多对多关系,中间表emp_role -->
+		<bag name="roles" order-by="roleuuid" table="emp_role">
+			<key column="empuuid"></key>
+			<many-to-many class="cn.kumiaojie.erp.entity.Role" column="roleuuid"></many-to-many>			
+		</bag>
+	</class>
+
+</hibernate-mapping>

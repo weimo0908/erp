@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>员工管理</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="ui/date.js"></script>
+	<script type="text/javascript" src="ui/download.js"></script>
+	<!-- 引入crud -->
+	<script type="text/javascript" src="js/crud.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+
+	<!-- 配置通用属性 -->
+	<script type="text/javascript">
+	/* 定义action名称 */
+	var name = "emp";
+	/* 定义弹出窗口大小 */
+	var width = "600";
+	var height ="240";
+	/* 显示datagrid */
+	var columns=[[    
+		        {field:'uuid',title:'员工编号',width:100,align:'center',sortable:true},    
+		        {field:'username',title:'登录名',width:100,align:'center',sortable:true},    
+		        {field:'name',title:'员工姓名',width:100,align:'center',sortable:true},    
+		        {field:'gender',title:'员工性别',width:100,align:'center',
+		        	formatter: function(value){
+		        		if(1==value*1){
+		        			return '男';
+		        		}
+		        		if(0==value*1){
+		        			return '女';
+		        		}
+		        	}},    
+		        	
+		        {field:'email',title:'员工邮箱',width:100,align:'center'},    
+		        {field:'tele',title:'员工电话',width:100,align:'center'},    
+		        {field:'address',title:'员工地址',align:'center'},    
+		        {field:'birthday',title:'员工生日',width:100,align:'center',sortable:true,
+		        	formatter: function(value){
+		        		return new Date(value).Format("yyyy-MM-dd");
+		        	}},    
+		        	
+		        {field:'dep',title:'员工部门',width:100,align:'center',
+		        	formatter:function(value){
+		        		return value.name;
+		        	}},    
+		        	
+		        {field:'-',title:'操作',width:100,align:'center',
+		        	formatter: function(value,row,index){
+		        		var oper = '<a href="javascript:void(0)" onclick="edit(' + row.uuid + ')">修改</a>&nbsp;&nbsp;';
+			        	oper += '&nbsp;&nbsp;<a href="javascript:void(0)" onclick="del(' + row.uuid + ')">删除</a>';
+			        	return oper;
+					}
+		        }    
+		    ]];
+		
+	
+	</script>
+	
+	
+	</head>
+	
+	
+	
+	<body>
+		<!-- 条件查询表单 -->
+		<div class="easyui-panel" style="padding-left: 4px ;border-bottom: 0px" >  
+			<div style="height: 2px;"></div>
+			<form id="searchForm">
+				<table>
+					<tr>
+						<td>登录名:</td>
+						<td><input name="t1.username" placeholder="请输入员工登录名称或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>真实姓名:</td>
+						<td><input name="t1.name" placeholder="请输入员工姓名或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>性别:</td>
+						<td>
+							<input name="t1.gender" type="radio" value="" checked="checked" style=" width: 15px; height: 15px; border-radius: 0px;">全部
+							&nbsp; &nbsp; &nbsp;
+							<input name="t1.gender" type="radio" value="1" style=" width: 15px; height: 15px; border-radius: 0px;">男
+							&nbsp; &nbsp;&nbsp;
+							<input name="t1.gender" type="radio" value="0" style=" width: 15px; height: 15px; border-radius: 0px;">女
+						</td>
+					</tr>
+					
+					<tr>
+						<td>邮件地址:</td>
+						<td><input name="t1.email" placeholder="请输入邮箱称或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>联系电话:</td>
+						<td><input name="t1.tele" placeholder="请输入电话或关键字" >&nbsp; &nbsp;</td>
+						
+						<td>联系地址:</td>
+						<td><input name="t1.address" placeholder="请输入联系地址或关键字" ></td>
+					</tr>
+					
+					<tr>
+						<td>部门:</td>
+						<td>
+							<input name="t1.dep.uuid" class="easyui-combobox"  style="height: 30px;" data-options="
+							url:'dep_list',textField:'name' , valueField:'uuid' 
+							">&nbsp; &nbsp;
+						</td>
+						<td>出生日期:</td>
+						<td><input name="t1.birthday" class="easyui-datebox" style="height: 30px;" >&nbsp; &nbsp;</td>
+						<td>到:</td>
+						<td><input name="t2.birthday" class="easyui-datebox" style="height: 30px;"></td>
+						
+					</tr>
+					
+					<tr>
+						<td colspan="2">
+							<a id="btnSearch" type="button" 
+							class="easyui-linkbutton" data-options="iconCls:'icon-search'" >查询</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div style="height: 2px;"></div>
+		</div>
+		
+		<!-- datagrid列表 -->
+		<table id="grid"></table> 
+		
+		<!-- 修改窗口 -->
+		<div id="editDlg">
+			<form id="editForm">
+				<!-- 隐藏uuid属性 -->						
+				<input name ="t.uuid" type="hidden">
+				<table>
+					<tr>
+						<td>员工登录名:</td>
+						<td>
+							<input name="t.username" placeholder="请输入员工登录名"  class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'登陆名不能为空!'"
+							>&nbsp; &nbsp;
+						</td>
+						<td>部门:</td>
+						<td>
+							<input name="t.dep.uuid" class="easyui-combobox" data-options="
+							url:'dep_list', textField:'name', valueField:'uuid',required:true" style="height: 30px;"
+							>
+						</td>
+					</tr>
+					<tr>
+						<td>员工姓名:</td>
+						<td>
+							<input name="t.name" placeholder="请输入员工姓名" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'员工姓名不能为空!'"
+							>
+						</td>
+						<td>性别:</td>
+						<td>
+							<input style=" width: 15px; height: 15px; border-radius: 0px;" 
+							name="t.gender" type="radio" value="1">男 &nbsp; &nbsp; &nbsp; &nbsp;
+							<input style=" width: 15px; height: 15px; border-radius: 0px;"
+							name="t.gender" type="radio" value="0">女
+						</td>
+					</tr>	
+					<tr>
+						<td>电话:</td>
+						<td>
+							<input name="t.tele" placeholder="请输入电话" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'电话不能为空!'"
+							>
+						</td>
+						<td>E-mail:</td>
+						<td>
+							<input name="t.email" placeholder="请输入员工邮箱" class="easyui-validatebox" data-options="
+							required:true,validType:'email',invalidMessage:'Email格式不正确'"
+							>
+						</td>
+					</tr>	
+					<tr>
+						<td>联系地址:</td>
+						<td>
+							<input name="t.address" placeholder="请输入联系地址" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'联系地址不能为空!'"
+							>
+						</td>
+						<td>出生日期:</td>
+						<td>
+							<input name="t.birthday" class="easyui-datebox" editable="false" class="easyui-validatebox" 
+							data-options="required:true,missingMessage:'出生日期不能为空!'" style="height: 30px;"
+							>
+						</td>
+					</tr>	
+					
+					<tr>
+						<td colspan="2">
+							<a id="btnSave" type="button" class="easyui-linkbutton"
+						 data-options="iconCls:'icon-save'">保存</a>
+						 </td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+		<!-- 文件导入 -->
+	<div id="importDlg" style="padding: 2px;">
+		<form id="importForm" enctype="multipart/form-data">
+			导入文件:<input type="file" name="file">
+		</form>
+	</div>
+</body>
+</html>

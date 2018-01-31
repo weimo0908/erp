@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+ <!-- private Long uuid;//商品类型编号
+	private String name;//商品分类名称 -->
+ 
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Goodstype" table="goodstype">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">GOODSTYPE_SEQ</param>
+			</generator>
+		</id>
+		<property name="name"/>
+		
+		<!-- 放置goods的Set集合 -->		
+		
+	</class>
+
+</hibernate-mapping>

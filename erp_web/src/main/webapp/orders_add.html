@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>采购申请</title>
+	<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+	<script type="text/javascript" src="ui/jquery.min.js"></script>
+	<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+	<!-- 引入orders_add.js -->
+	<script type="text/javascript" src="js/orders_add.js"></script>
+	
+	<!-- 引入自己抽取的css样式 -->
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+	
+	</head>
+	
+	
+	
+	<body>
+		<form id="orderForm">
+			供应商:<input id="supplier" name="t.supplieruuid">
+			<div style="height: 2px"></div>
+		</form>
+		
+		<table id="grid"></table>
+	</body>
+</html>

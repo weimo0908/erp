@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+ 
+<!-- private Long uuid;//编号
+	private Date createtime;//生成日期
+	private Date checktime;//审核日期
+	private Date starttime;//确认日期
+	private Date endtime;//入库或出库日期
+	private String type;//1:采购;2:销售
+	private Long creater;//下单员
+	private Long checker;//审核员
+	private Long starter;//采购员
+	private Long ender;//库管员
+	private Long supplieruuid;//供应商或客户
+	private Double totalmoney;//合计金额
+	private String state;//采购: 0:未审核 1:已审核, 2:已确认, 3:已入库；销售：0:未出库 1:已出库
+	private Long waybillsn;//运单号
+	//订单明细	外键
+	private List<Orderdetail> orderDetails; -->
+ 
+<hibernate-mapping>
+	<class name="cn.kumiaojie.erp.entity.Orders" table="orders">
+		<id name="uuid">
+			<generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="sequence_name">ORDERS_SEQ</param>
+			</generator>
+		</id>
+		<property name="createtime"/>
+		<property name="checktime"/>
+		<property name="starttime"/>
+		<property name="endtime"/>
+		<property name="type"/>
+		<property name="creater"/>
+		<property name="checker"/>
+		<property name="starter"/>
+		<property name="ender"/>
+		<property name="supplieruuid"/>
+		<property name="totalmoney"/>
+		<property name="state"/>
+		<property name="waybillsn"/>
+		
+		<!-- 级联更新 -->
+		<bag name="orderDetails" cascade="save-update" inverse="true">
+			<key column="ordersuuid" ></key>
+			<one-to-many class="cn.kumiaojie.erp.entity.Orderdetail"/>
+		</bag>
+		
+		<bag name="returnorders" inverse="true">
+			<key column="ordersuuid"></key>
+			<one-to-many class="cn.kumiaojie.erp.entity.Returnorders"/>
+		</bag>
+		
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- Shiro过滤工厂bean 相当于间接加载了9个内置过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 安全管理器,shiro的核心 Facade设计模式 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 添加自定义过滤器 -->
+		<property name="filters">
+			<map>
+				<entry key="perms" value-ref="erpAuthorizationFilter"></entry>
+			</map>
+		</property>
+		<!-- 认证相关配置,若没有通过验证,则返回到相应的页面 value -->
+		<property name="loginUrl" value="/login.html" />
+		<!-- 授权相关配置,若没有通过授权,则返回到相应的页面value -->
+		<property name="unauthorizedUrl" value="/error.html" />
+		
+		
+		<!-- 过滤链的定义：定义URL访问的时候对应的认证或授权时处理的过滤器 -->
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- 以下是不需要 -->
+				/error.html = anon
+				/login_*.action=anon
+				/login_*=anon
+				
+				<!-- 这里是根据项目的目录来设置 -->
+				<!-- 通用有效方法 -->
+<!-- 				/*_list=perms[] -->
+				
+<!-- 				/goodstype.html=perms["商品类型"] -->
+<!-- 				/goodstype_*=perms["商品类型"] -->
+				
+<!-- 				/goods.html=perms["商品"] -->
+<!-- 				/goods_*=perms["商品"] -->
+				
+<!-- 				/store.html=perms["仓库"] -->
+<!-- 				/store_*=perms["仓库"] -->
+<!-- 				/store_*.action=perms["仓库"] -->
+				
+<!-- 				/dep.html=perms["部门管理"] -->
+<!-- 				/dep_*=perms["部门管理"] -->
+				
+<!-- 				/emp.html=perms["员工管理"] -->
+<!-- 				/emp_*=perms["员工管理"] -->
+				
+<!-- 				/waybill.html=perms["运单管理"] -->
+<!-- 				/waybill_*=perms["运单管理"] -->
+				
+<!-- 				/waybilldetail.html=perms["运单详情管理"] -->
+<!-- 				/waybilldetail_*=perms["运单详情管理"] -->
+				
+<!-- 				/empRoleSet.html=perms["用户角色设置"] -->
+<!-- 				/empRoleSet_*=perms["用户角色设置"] -->
+				
+<!-- 				/roleMenuSet.html=perms["角色权限管理"] -->
+<!-- 				/roleMenuSet_*=perms["角色权限管理"] -->
+				
+<!-- 				/role.html=perms["角色设置"] -->
+<!-- 				/role_*=perms["角色设置"] -->
+				
+<!-- 				/orders.html=perms["采购订单查询","采购订单入库","采购订单确认","采购订单审核","我的采购订单","销售订单查询","我的销售订单","销售订单出库"] -->
+<!-- 				/orders_*=perms["采购订单查询","采购订单入库","采购订单确认","采购订单审核","我的采购订单","销售订单查询","我的销售订单","销售订单出库"] -->
+				
+<!-- 				/pwd.html=perms["重置密码"] -->
+<!-- 				/pwd_*=perms["重置密码"] -->
+				
+<!-- 				/supplier.html=perms["供应商","客户"]" -->
+<!-- 				/supplier_*=perms["供应商","客户"]" -->
+				
+<!-- 				/storealert.html=perms["库存预警"] -->
+<!-- 				/storealert_*=perms["库存预警"] -->
+				
+<!-- 				/storeoper.html=perms["库存变动记录"] -->
+<!-- 				/storeoper_*=perms["库存变动记录"] -->
+				
+<!-- 			/storedetail.html=perms["库存查询"] --> 
+<!-- 				/storedetail.html=perms[] -->
+<!-- 				/storedetail_*=perms["库存查询"] --> 
+<!-- 				/storedetail_*=perms[] -->
+				
+<!-- 				/report_trend.html=perms["业务趋势分析"] -->
+<!-- 				/report_trend_column.html=perms["采购销售趋势分析"] -->
+<!-- 				/report_order.html=perms["销售分析","采购分析"] -->
+<!-- 				/report_Returnorder.html=perms["销售退货分析","采购退货分析"] -->
+<!-- 				/report_storedetail_column.html=perms["商品库存量统计分析"] -->
+<!-- 				/report_storeoper_column.html=perms["商品种类出入库比例分析"] -->
+<!-- 				/report_*=perms["采购销售趋势分析","销售分析","采购分析","商品库存量统计分析","商品种类出入库比例分析"] -->
+<!-- 				/report_*=perms[] -->
+								
+<!-- 				/returnorders.html=perms[] -->
+<!-- 				/returnorders_*=perms[] -->
+				<!-- 以下是需要验证 -->
+				/*.action=authc
+				/*.html = authc
+				/*=authc
+			</value>
+		</property>
+	</bean>
+	
+	<!-- 安全管理器:核心组件 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="erpRealm"/>
+	</bean>
+
+	<!-- 自定义realm配置 -->
+	<bean id="erpRealm" class="cn.kumiaojie.erp.web.realm.ErpRealm">
+		<property name="empBiz" ref="empBiz"/>
+		<property name="menuBiz" ref="menuBiz"/>
+	</bean>
+	
+	<!-- 自定义过滤器配置 -->
+	<bean id="erpAuthorizationFilter" class="cn.kumiaojie.erp.web.filter.ErpAuthorizationFilter"></bean>
+	
+	
+	<!-- 启动shiro注解 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+			depends-on="lifecycleBeanPostProcessor" >
+		<!-- 默认使用JDK代理 ，如被代理类没有实现接口，必须使用下列配置开启 cglib代理  -->
+		<property name="proxyTargetClass" value="true" />
+	</bean>	
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	
+	<!-- 对安全管理器 增强代码 ， spring 后处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/> 
+	
+</beans>
